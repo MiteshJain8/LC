@@ -10,7 +10,7 @@ class Solution:
 
             cur = adj_set[i].copy()
             for j in cur:
-                adj_set[i] |= dfs(j)
+                adj_set[i].update(dfs(j))
 
             dp[i] = True
             return adj_set[i]
@@ -23,7 +23,7 @@ class Solution:
         for i in range(numCourses):
             cur = adj_set[i].copy()
             for j in cur:
-                adj_set[i] |= dfs(j)
+                adj_set[i].update(dfs(j))
         
         n = len(queries)
         res = [False for _ in range(n)]
