@@ -1,12 +1,16 @@
 class Solution:
     def findMaxFish(self, grid: List[List[int]]) -> int:
-        def dfs(i,j):
-            cnt = grid[i][j]
-            grid[i][j] = 0
-            for x,y in dirs:
-                dx, dy = i+x, j+y
-                if 0 <= dx < m and 0 <= dy < n and grid[dx][dy]:
-                    cnt += dfs(dx,dy) 
+        def bfs(i,j):
+            q = deque([(i,j)])
+            cnt = 0
+            while q:
+                r,c = q.popleft()
+                cnt += grid[r][c]
+                grid[r][c] = 0
+                for dx,dy in dirs:
+                    x, y = r+dx, c+dy
+                    if 0 <= x < m and 0 <= y < n and grid[x][y]:
+                        q.append((x,y))
             return cnt
 
         res = 0
@@ -15,5 +19,5 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if grid[i][j]:
-                    res = max(res, dfs(i,j))
+                    res = max(res, bfs(i,j))
         return res
