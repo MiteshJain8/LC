@@ -11,7 +11,6 @@ class Solution:
 
         n, res = len(grid), 0
         hlist, hmap = [], defaultdict(int)
-        vis = [[False for _ in range(n)] for _ in range(n)]
         dirs = [(0,1), (1,0), (0,-1), (-1,0)]
         for i in range(n):
             for j in range(n):
