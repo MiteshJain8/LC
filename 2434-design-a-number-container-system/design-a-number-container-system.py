@@ -1,18 +1,19 @@
 class NumberContainers:
 
     def __init__(self):
-        self.num_to_idx = defaultdict(SortedList)
+        self.num_to_idx = defaultdict(list)
         self.idx_to_num = defaultdict(int)
 
     def change(self, index: int, number: int) -> None:
-        if self.idx_to_num[index]:
-            self.num_to_idx[self.idx_to_num[index]].remove(index)
         self.idx_to_num[index] = number
-        self.num_to_idx[number].add(index)
+        heappush(self.num_to_idx[number], index)
 
     def find(self, number: int) -> int:
-        if self.num_to_idx[number]:
-            return self.num_to_idx[number][0]
+        while(self.num_to_idx[number]):
+            idx = self.num_to_idx[number][0]
+            if self.idx_to_num[idx] == number:
+                return idx
+            heappop(self.num_to_idx[number])
         return -1
 
 
