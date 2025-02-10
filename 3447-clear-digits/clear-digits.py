@@ -1,16 +1,16 @@
 class Solution:
     def clearDigits(self, s: str) -> str:
-        s, hset = list(s), set(['0','1','2','3','4','5','6','7','8','9'])
+        s = list(s)
         i, cnt = len(s)-1, 0
         while i > 0 :
-            while s[i] in hset:
+            while s[i].isdigit():
                 cnt += 1
                 s[i] = ''
                 i -= 1
-            while cnt and s[i] not in hset:
+            while cnt and not s[i].isdigit():
                 cnt -= 1
                 s[i] = ''
                 i -= 1
-            if not cnt and s[i] not in hset:
+            if not cnt and not s[i].isdigit():
                 i -= 1
         return "".join(s)
