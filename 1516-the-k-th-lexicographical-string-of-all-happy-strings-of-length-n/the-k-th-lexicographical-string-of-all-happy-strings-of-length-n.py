@@ -1,6 +1,8 @@
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
         tot = 3 * 2 ** (n-1)
+        if k > tot:
+            return ""
         res = []
         choices = "abc"
         left, right = 1, tot
