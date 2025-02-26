@@ -1,10 +1,9 @@
 class Solution:
     def maxAbsoluteSum(self, nums: List[int]) -> int:
-        cur_max_sum, max_sum = nums[0], nums[0]
-        cur_min_sum, min_sum = nums[0], nums[0]
-        for i in range(1,len(nums)):
-            cur_max_sum = max(nums[i], nums[i]+cur_max_sum)
-            cur_min_sum = min(nums[i], nums[i]+cur_min_sum)
-            max_sum = max(max_sum, cur_max_sum)
-            min_sum = min(min_sum, cur_min_sum)
-        return max(max_sum, abs(min_sum))
+        cur_sum = res = max_pre = min_pre = 0
+        for num in nums:
+            cur_sum += num
+            res = max(abs(cur_sum-max_pre), abs(cur_sum-min_pre), res)
+            max_pre = max(cur_sum, max_pre)
+            min_pre = min(cur_sum, min_pre)
+        return res
