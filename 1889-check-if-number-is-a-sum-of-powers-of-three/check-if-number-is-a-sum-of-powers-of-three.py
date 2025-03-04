@@ -5,10 +5,8 @@ class Solution:
                 return True
             if i < 0 or cur_sum > n:
                 return False
-
-            select = backtrack(i-1, cur_sum + 3**i)
-            ignore = backtrack(i-1, cur_sum)
-
-            return select or ignore
+            if backtrack(i-1, cur_sum + 3**i):
+                return True
+            return backtrack(i-1, cur_sum)
 
         return backtrack(floor(log(n,3)), 0)
