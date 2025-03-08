@@ -1,18 +1,12 @@
 class Solution:
     def minimumRecolors(self, blocks: str, k: int) -> int:
-        dq = deque()
-        n = res = len(blocks)
-        l = cur = 0
-        for r in range(n):
+        l = 0
+        res = cur = blocks[:k].count('W')
+        for r in range(k,len(blocks)):
             if blocks[r] == 'W':
-                dq.append(r)
                 cur += 1
-            while r-l+1 >= k:
+            if blocks[l] == 'W':
+                cur -= 1
                 res = min(res, cur)
-                if dq:
-                    j = dq.popleft()
-                    l = j + 1
-                    cur -= 1
-                else:
-                    break
+            l += 1
         return res
