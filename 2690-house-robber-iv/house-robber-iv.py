@@ -11,11 +11,12 @@ class Solution:
                 i += 1
             return False
 
-        left, right, res = 1, max(nums), 0
+        sizes = sorted(list(set(nums)))
+        left, right, res = 0, len(sizes)-1, 0
         while left <= right:
             mid = left + (right-left)//2
-            if is_possible(mid):
-                res = mid
+            if is_possible(sizes[mid]):
+                res = sizes[mid]
                 right = mid - 1
             else:
                 left = mid + 1
