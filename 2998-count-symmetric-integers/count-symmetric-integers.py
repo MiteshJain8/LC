@@ -6,8 +6,6 @@ class Solution:
             l = len(s)
             if l & 1:
                 continue
-            sum1 = sum(int(s[j]) for j in range(l//2))
-            sum2 = sum(int(s[j]) for j in range(l//2, l))
-            if sum1 == sum2:
+            if sum(int(j) for j in s[:l//2]) == sum(int(j) for j in s[l//2:]):
                 res += 1
         return res
