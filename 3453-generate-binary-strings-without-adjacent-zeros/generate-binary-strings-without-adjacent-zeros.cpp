@@ -1,28 +1,25 @@
 class Solution {
 public:
-    vector<string> backtrack(int n, int i, string subs) {
-        vector<string> res;
+    vector<string> res;
+    void backtrack(int n, int i, string& subs) {
         if (i == n-1) {
             res.push_back(subs);
-            return res;
+            return;
         }
-        if (subs[i] == '0') {
-            vector<string> ans1 = backtrack(n, i+1, subs+'1');
-            res.insert(res.end(), ans1.begin(), ans1.end());
-        } else {
-            vector<string> ans1 = backtrack(n, i+1, subs+'1');
-            res.insert(res.end(), ans1.begin(), ans1.end());
-            vector<string> ans2 = backtrack(n, i+1, subs+'0');
-            res.insert(res.end(), ans2.begin(), ans2.end());
+        subs.push_back('1');
+        backtrack(n, i+1, subs);
+        subs.pop_back();
+        if (subs[i] == '1') {
+            subs.push_back('0');
+            backtrack(n, i+1, subs);
+            subs.pop_back();
         }
-        return res;
     }
 
     vector<string> validStrings(int n) {
-        vector<string> res1, res2;
-        res1 = backtrack(n, 0, "1"); 
-        res2 = backtrack(n, 0, "0");
-        res1.insert(res1.end(), res2.begin(), res2.end());
-        return res1;
+        string a="1", b="0";
+        backtrack(n, 0, a); 
+        backtrack(n, 0, b);
+        return res;
     }
 };
