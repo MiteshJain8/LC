@@ -12,7 +12,6 @@ class Solution:
 
         answer = [0] * n
         take = leave = 0
-        color1 = [True] * n
 
         bfs2 = deque([0])
         flag = False
@@ -33,6 +32,7 @@ class Solution:
 
         take = max(take, leave)
         
+        color1 = [True] * n
         bfs1 = deque([0])
         ones = 0
         flag = True
