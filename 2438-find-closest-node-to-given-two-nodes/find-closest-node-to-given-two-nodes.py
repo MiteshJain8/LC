@@ -2,7 +2,7 @@ class Solution:
     def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
         q1, q2 = deque([node1]), deque([node2])
         visited1, visited2 = set(), set()
-        matching_nodes = [] # list of nodes matching the criteria. Need to return the smallest index
+        matching_nodes = []
 
         while q1 or q2:
             nb_nodes_on_level1 = len(q1)
