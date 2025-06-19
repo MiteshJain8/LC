@@ -1,6 +1,8 @@
 class Solution:
     def partitionArray(self, nums: List[int], k: int) -> int:
         nums = list(set(nums))
+        if k == 0:
+            return len(nums)
         nums.sort()
         n = len(nums)
         i = j = 0
