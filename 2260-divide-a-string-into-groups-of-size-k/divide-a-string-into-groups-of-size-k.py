@@ -1,15 +1,10 @@
 class Solution:
     def divideString(self, s: str, k: int, fill: str) -> List[str]:
-        res = []
-        n = len(s)
+        res = [""] * ceil(len(s) / k)
         i = 0
-        while i < n - k:
-            res.append(s[i:i+k])
+        for j in range(len(res)):
+            res[j] = s[i:i+k]
             i += k
-        if n % k != 0:
-            times = n % k
-            end = s[i:] + fill * (k - times)
-            res.append(end)
-        else:
-            res.append(s[i:])
+
+        res[-1] += fill * (k - len(res[-1]))
         return res
