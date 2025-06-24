@@ -1,7 +1,13 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        zero, one, two = 1, 1, 2
-        for i in range(1,n):
-            two = zero + one
-            zero, one = one, two
-        return one
+        def dfs(i):
+            if i <= 1:
+                return 1
+            if dp[i]:
+                return dp[i]
+
+            dp[i] = dfs(i - 1) + dfs(i - 2)
+            return dp[i]
+
+        dp = [0] * (n+1)
+        return dfs(n)
