@@ -1,16 +1,11 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        def  dfs(i):
-            if i >= n:
-                return 0
-            if dp[i] != -1:
-                return dp[i]
-
-            dp[i] = dfs(i + 2) + nums[i]
-
-            dp[i] = max(dfs(i + 1), dp[i])
-            return dp[i]
-
         n = len(nums)
-        dp = [-1] * n
-        return dfs(0)
+        if n == 1:
+            return nums[0]
+        dp = [0] * n
+        dp[n-1] = nums[n-1]
+        dp[n-2] = max(nums[n-2], nums[n-1])
+        for i in range(n-3, -1, -1):
+            dp[i] = max(dp[i+1], nums[i] + dp[i+2])
+        return dp[0]
