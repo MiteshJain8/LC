@@ -1,16 +1,10 @@
 class Solution:
     def findLHS(self, nums: List[int]) -> int:
-        nums.sort()
+        hmap = Counter(nums)
         res = 0
-        n = len(nums)
-        i = j = 0
-        while j < n:
-            if nums[j] == nums[i]:
-                j += 1
-            elif nums[j] - nums[i] == 1:
-                res = max(res, j-i+1)
-                j += 1
-            else:
-                i += 1
+        hmap = dict(sorted(hmap.items()))
+        for k,v in hmap.items():
+            if k-1 in hmap:
+                res = max(res, v + hmap[k-1])
 
         return res
