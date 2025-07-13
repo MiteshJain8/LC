@@ -7,8 +7,6 @@ class Solution:
             if players[0] <= trainers[0]:
                 res += 1
                 heappop(players)
-                heappop(trainers)
-            else:
-                heappop(trainers)
+            heappop(trainers)
 
         return res
