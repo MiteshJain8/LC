@@ -1,21 +1,18 @@
 class Solution:
     def countHillValley(self, nums: List[int]) -> int:
-        prev = nums[0]
+        prev_crest = prev_trough = nums[0]
         res = 0
-        n = len(nums)
-        for i in range(1, n-1):
-            if prev < nums[i] and nums[i+1] < nums[i]:
+        for i in range(1, len(nums)-1):
+            if prev_trough < nums[i] and nums[i+1] < nums[i]:
                 res += 1
-                prev = nums[i+1]
-            elif prev >= nums[i]:
-                prev = nums[i]
-            
-        prev = nums[0]
-        for i in range(1, n-1):
-            if prev > nums[i] and nums[i+1] > nums[i]:
+                prev_trough = nums[i+1]
+            elif prev_trough >= nums[i]:
+                prev_trough = nums[i]
+
+            if prev_crest > nums[i] and nums[i+1] > nums[i]:
                 res += 1
-                prev = nums[i+1]
-            elif prev <= nums[i]:
-                prev = nums[i]
+                prev_crest = nums[i+1]
+            elif prev_crest <= nums[i]:
+                prev_crest = nums[i]
             
         return res
