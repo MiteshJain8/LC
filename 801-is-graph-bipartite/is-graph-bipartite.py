@@ -1,27 +1,22 @@
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-        def bfs(i):
+        def dfs(i, prev):
             if color[i]:
-                return True
+                if color[i] != prev:
+                    return True
+                return False
 
-            color[i] = -1
-            pq = deque([i])
-            while pq:
-                cur = pq.popleft()
-                for nei in graph[cur]:
-                    if color[nei]:
-                        if color[nei] == color[cur]:
-                            return False
-                    else:
-                        color[nei] = -1 * color[cur]
-                        pq.append(nei)
-
+            color[i] = -1 * prev
+            for nei in graph[i]:
+                if not dfs(nei, color[i]):
+                    return False
+                
             return True
 
         n = len(graph)
         color = [0] * n
         for k in range(n):
-            if not bfs(k):
+            if not color[k] and not dfs(k, -1):
                 return False
         
         return True
