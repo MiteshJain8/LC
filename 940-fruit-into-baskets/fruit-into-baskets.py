@@ -11,7 +11,6 @@ class Solution:
             end1 = k - 1
             end2 = k
             k += 1
-        # print(k)
         if k == n:
             return n
         l = 0
@@ -24,7 +23,6 @@ class Solution:
                 end2 = r
                 cur += 1
             else:
-                print(r, t1, t2, l)
                 if fruits[l] == t1 and fruits[r-1] == t2:
                     l = end1 + 1
                     t1 = fruits[r]
@@ -43,7 +41,6 @@ class Solution:
                         t1 = fruits[r]
                         end1 = r
                 cur = r - l + 1
-            print(cur)
 
             res = max(res, cur)
 
