@@ -1,47 +1,19 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
         n = len(fruits)
-        if n < 3:
-            return n
-        t1, t2 = fruits[0], fruits[1]
-        end1, end2 = 0, 1
-        k = 2
-        while k < n and t1 == t2:
-            t2 = fruits[k]
-            end1 = k - 1
-            end2 = k
-            k += 1
-        if k == n:
-            return n
-        l = 0
-        res = cur = k
-        for r in range(k, n):
-            if fruits[r] == t1:
-                end1 = r
+        hset = defaultdict(int)
+        l = res = cur = 0
+        for r in range(n):
+            hset[fruits[r]] += 1
+            if len(hset) <= 2:
                 cur += 1
-            elif fruits[r] == t2:
-                end2 = r
-                cur += 1
+                res = max(res, cur)
             else:
-                if fruits[l] == t1 and fruits[r-1] == t2:
-                    l = end1 + 1
-                    t1 = fruits[r]
-                    end1 = r
-                elif fruits[l] == t2 and fruits[r-1] == t1:
-                    l = end2 + 1
-                    t2 = fruits[r]
-                    end2 = r
-                else:
-                    if fruits[r-1] == t1:
-                        l = end2 + 1
-                        t2 = fruits[r]
-                        end2 = r
-                    else:
-                        l = end1 + 1
-                        t1 = fruits[r]
-                        end1 = r
+                while len(hset) > 2:
+                    hset[fruits[l]] -= 1
+                    if hset[fruits[l]] == 0:
+                        del hset[fruits[l]]
+                    l += 1
                 cur = r - l + 1
-
-            res = max(res, cur)
 
         return res
