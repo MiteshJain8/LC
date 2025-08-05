@@ -6,28 +6,28 @@ class Trie:
 
     def insert(self, word: str) -> None:
         cur = self
-        for i in range(len(word)):
-            if word[i] not in cur.children:
-                cur.children[word[i]] = Trie()
-            cur = cur.children[word[i]]
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = Trie()
+            cur = cur.children[c]
 
         cur.isEnd = True
         
     def search(self, word: str) -> bool:
         cur = self
-        for i in range(len(word)):
-            if word[i] not in cur.children:
+        for c in word:
+            if c not in cur.children:
                 return False
-            cur = cur.children[word[i]]
+            cur = cur.children[c]
 
         return cur.isEnd
 
     def startsWith(self, prefix: str) -> bool:
         cur = self
-        for i in range(len(prefix)):
-            if prefix[i] not in cur.children:
+        for c in prefix:
+            if c not in cur.children:
                 return False
-            cur = cur.children[prefix[i]]
+            cur = cur.children[c]
 
         return True
 
