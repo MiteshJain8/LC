@@ -20,11 +20,10 @@ class Trie {
     public boolean search(String word) {
         Trie cur = this;
         for (Character c: word.toCharArray()) {
-            if (cur.children.containsKey(c)) {
-                cur = cur.children.get(c);
-            } else {
+            if (!cur.children.containsKey(c)) {
                 return false;
             }
+            cur = cur.children.get(c);
         }
         return cur.isEnd;
     }
@@ -32,11 +31,10 @@ class Trie {
     public boolean startsWith(String prefix) {
         Trie cur = this;
         for (Character c: prefix.toCharArray()) {
-            if (cur.children.containsKey(c)) {
-                cur = cur.children.get(c);
-            } else {
+            if (!cur.children.containsKey(c)) {
                 return false;
             }
+            cur = cur.children.get(c);
         }
         return true;
     }
