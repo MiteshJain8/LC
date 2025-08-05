@@ -9,13 +9,10 @@ public:
     void insert(string word) {
         Trie* cur = this;
         for (char c: word) {
-            if (cur -> children.find(c) != cur -> children.end()) {
-                cur = cur -> children[c];
-            } else {
-                // Trie* nxt = new Trie();
+            if (cur -> children.find(c) == cur -> children.end()) {
                 cur -> children[c] = new Trie();
-                cur = cur -> children[c];
             }
+            cur = cur -> children[c];
         }
         cur -> isEnd = true;
     }
