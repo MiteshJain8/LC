@@ -20,11 +20,10 @@ public:
     bool search(string word) {
         Trie* cur = this;
         for (char c: word) {
-            if (cur -> children.find(c) != cur -> children.end()) {
-                cur = cur -> children[c];
-            } else {
+            if (cur -> children.find(c) == cur -> children.end()) {
                 return false;
             }
+            cur = cur -> children[c];
         }
         return cur -> isEnd;
     }
@@ -32,11 +31,10 @@ public:
     bool startsWith(string prefix) {
         Trie* cur = this;
         for (char c: prefix) {
-            if (cur -> children.find(c) != cur -> children.end()) {
-                cur = cur -> children[c];
-            } else {
+            if (cur -> children.find(c) == cur -> children.end()) {
                 return false;
             }
+            cur = cur -> children[c];
         }
         return true;
     }
