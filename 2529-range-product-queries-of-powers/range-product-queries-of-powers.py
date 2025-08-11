@@ -7,13 +7,11 @@ class Solution:
             if n & i:
                 pows.append(i)
             i <<= 1
-        q = len(queries)
-        res = [1] * q
-        for j in range(q):
-            start = queries[j][0]
-            end = queries[j][1]
+        res = []
+        for start, end in queries:
+            prod = 1
             for k in range(start, end+1):
-                res[j] = (res[j] * pows[k]) % mod
-            res[j] = int(res[j])
+                prod = prod * pows[k] % mod
+            res.append(int(prod))
 
         return res
