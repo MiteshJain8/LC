@@ -5,7 +5,7 @@ class Solution:
             if cur > 0:
                 cur += num
             else:
-                cur = max(cur, num)
+                cur = num
             res = max(cur, res)
 
         return res
