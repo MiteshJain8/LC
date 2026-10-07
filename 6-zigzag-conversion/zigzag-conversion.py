@@ -1,24 +1,26 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        keep = [[] for _ in range(numRows)]
-        i = 0
-        flag = True
-        for j in range(len(s)):
-            keep[i].append(s[j])
-            if flag:
-                if i < numRows - 1:
-                    i += 1
-                else:
-                    flag = False
-                    i -= 1
+        if numRows == 1:
+            return s
+        lst = [[] for _ in range(numRows)]
+        n = len(s)
+        i, j = 0, 0
+        asc = True
+        while j < n:
+            lst[i].append(s[j])
+            j += 1
+            if asc:
+                i = (i + 1) % numRows
+                if i == 0:
+                    asc = False
+                    i = numRows - 2
             else:
-                if i > 0:
-                    i -= 1
-                else:
-                    flag = True
-                    i += 1
+                i -= 1
+                if i == -1:
+                    asc = True
+                    i = 1
         res = ""
-        for lst in keep:
-            res += "".join(lst)
-        # print(keep)
+        for k in range(numRows):
+            cur = "".join(lst[k])
+            res += cur
         return res
