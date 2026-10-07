@@ -1,28 +1,23 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        def bfs(u, v):
-            if grid[u][v] == '0':
-                return False
+        def dfs(a, b):
+            visited[a][b] = True
+            sides = [(0,1), (0,-1), (-1,0), (1,0)]
+            for dx, dy in sides:
+                x = a + dx
+                y = b + dy
+                if m <= x or x < 0 or n <= y or y < 0:
+                    continue
+                if grid[x][y] == "1" and not visited[x][y]:
+                    dfs(x,y)
+            return
 
-            pq = deque([(u,v)])
-            grid[u][v] = '0'
-            while pq:
-                x, y = pq.popleft()
-                for dx, dy in dirs:
-                    nx, ny = x+dx, y+dy
-                    if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == '1':
-                        pq.append((nx,ny))
-                        grid[nx][ny] = '0'
-
-            return True
-            
-        m = len(grid)
-        n = len(grid[0])
+        m, n = len(grid), len(grid[0])
         res = 0
-        dirs = [(0,1), (0, -1), (1,0), (-1,0)]
+        visited = [[False for _ in range(n)] for _ in range(m)]
         for i in range(m):
             for j in range(n):
-                if bfs(i, j):
+                if grid[i][j] == "1" and not visited[i][j]:
                     res += 1
-
+                    dfs(i, j)
         return res
