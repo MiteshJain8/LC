@@ -5,20 +5,14 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        prev = TreeNode(float("-inf"))
+    def isValidBST(self, root: TreeNode | None) -> bool:
+        def backtrack(node, less, greater):
+            res = less < node.val < greater
+            if node.left:
+                res = res and backtrack(node.left, less, node.val)
+            if node.right:
+                res = res and backtrack(node.right, node.val, greater)
+            return res
 
-        def inorder(node):
-            nonlocal prev
-            if not node:
-                return True
 
-            res = inorder(node.left)
-            if prev.val >= node.val:
-                return False
-
-            prev = node
-            return inorder(node.right) and res
-
-        res = inorder(root)
-        return res
+        return backtrack(root, float("-inf"), float("inf"))
