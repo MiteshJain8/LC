@@ -5,13 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        def traverse(node, curSum):
-            if not node:
-                return False
+    def hasPathSum(self, root: TreeNode | None, targetSum: int) -> bool:
+        if not root:
+            return False
+
+        def backtrack(node, curSum):
             if not node.left and not node.right:
-                return curSum + node.val == targetSum
+                return curSum == targetSum
 
-            return traverse(node.left, curSum + node.val) or traverse(node.right, curSum + node.val)
+            res = False
+            if node.left:
+                res = backtrack(node.left, node.left.val+curSum)
+            if node.right:
+                res = res or backtrack(node.right, node.right.val+curSum)
+            return res
 
-        return traverse(root, 0)
+        return backtrack(root, root.val)
