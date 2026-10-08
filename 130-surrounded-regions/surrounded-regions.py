@@ -1,36 +1,35 @@
 class Solution:
-    def solve(self, board: List[List[str]]) -> None:
+    def solve(self, board: list[list[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        def bfs(u, v):
-            pq = deque([(u,v)])
-            board[u][v] = 'S'
-            while pq:
-                x, y = pq.popleft()
-                for dx, dy in dirs:
-                    nx, ny = x+dx, y+dy
-                    if 0 <= nx < m and 0 <= ny < n and board[nx][ny] == 'O':
-                        pq.append((nx,ny))
-                        board[nx][ny] = 'S'
-                        
-        m = len(board)
-        n = len(board[0])
-        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
-        for i in range(m):
-            if board[i][0] == 'O':
-                bfs(i, 0)
-            if board[i][n-1] == 'O':
-                bfs(i, n-1)
-        for i in range(1,n):
-            if board[0][i] == 'O':
-                bfs(0, i)
-            if board[m-1][i] == 'O':
-                bfs(m-1, i)
+        def check_dfs(a, b):
+            if a == m or b == n or a == 0 or b == 0:
+                return False
 
-        for i in range(m):
-            for j in range(n):
-                if board[i][j] == 'O':
-                    board[i][j] = 'X'
-                elif board[i][j] == 'S':
-                    board[i][j] = 'O'
+            check[a][b] = True
+            res = True
+            for dx, dy in sides:
+                x, y = a + dx, b + dy
+                if 0 <= x <= m and 0 <= y <= n and board[x][y] == "O" and not check[x][y]:
+                    cur = check_dfs(x, y)
+                    res = res and cur
+                    # print(x, y, cur)
+            return res
+
+        def mark_dfs(a, b):
+            board[a][b] = "X"
+            for dx, dy in sides:
+                x, y = a + dx, b + dy
+                if 0 < x < m and 0 < y < n and board[x][y] == "O":
+                    mark_dfs(x, y)
+            return
+            
+        m, n = len(board)-1, len(board[0])-1
+        check = [[False] * (n+1) for _ in range(m+1)]
+        sides = [(0,1), (0,-1), (1,0), (-1,0)]
+        for i in range(1, m):
+            for j in range(1, n):
+                if board[i][j] == "O" and not check[i][j]:
+                    if check_dfs(i, j):
+                        mark_dfs(i, j)
