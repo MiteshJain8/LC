@@ -1,13 +1,14 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        def dfs(i):
-            if i <= 1:
+        def backtrack(k):
+            if k < 0:
+                return 0
+            if k == 0:
                 return 1
-            if dp[i]:
-                return dp[i]
+            if dp[k] != -1:
+                return dp[k]
+            dp[k] = backtrack(k-1) + backtrack(k-2)
+            return dp[k]
 
-            dp[i] = dfs(i - 1) + dfs(i - 2)
-            return dp[i]
-
-        dp = [0] * (n+1)
-        return dfs(n)
+        dp = [-1] * (n+1)
+        return backtrack(n)
