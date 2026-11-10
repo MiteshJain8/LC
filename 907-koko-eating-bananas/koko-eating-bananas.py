@@ -1,19 +1,21 @@
 class Solution:
-    def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        def is_poossible(k):
-            rem = h
-            for i in range(len(piles)):
-                rem -= ceil(piles[i]/k)
-                if rem < 0:
+    def minEatingSpeed(self, piles: list[int], h: int) -> int:
+        def can_eat(k):
+            t = 0
+            for i in range(n):
+                t += ceil(piles[i] / k)
+                if t > h:
                     return False
-            return rem >= 0 
+            return True
 
-        left, right, res = 1, max(piles), 0
-        while left <= right:
-            mid = left + (right-left)//2
-            if is_poossible(mid):
-                res = mid
-                right = mid - 1
+        l, r = 1, max(piles)
+        n = len(piles)
+        res = r
+        while l <= r:
+            m = (r-l)//2 + l
+            if can_eat(m):
+                res = min(res, m)
+                r = m-1
             else:
-                left = mid + 1
+                l = m+1
         return res
