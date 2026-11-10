@@ -1,8 +1,8 @@
 class Solution:
     def maxSubArray(self, nums: list[int]) -> int:
-        res, cur = nums[0], nums[0]
+        res, cur = float("-inf"), 0
         n = len(nums)
-        for i in range(1,n):
+        for i in range(n):
             if cur < 0:
                 cur = nums[i]
             else:
