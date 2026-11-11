@@ -1,10 +1,16 @@
 class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        N = len(nums)
-        valid_idx = N - 1
-        
-        for i in range(N - 2, -1, -1):
-            if i + nums[i] >= valid_idx:
-                valid_idx = i
-        
-        return valid_idx == 0
+    def canJump(self, nums: list[int]) -> bool:
+        n = len(nums) - 1
+        if not n:
+            return True
+        cur = n - 1
+        flag = True
+        while cur >= 0:
+            flag = False
+            if cur + nums[cur] >= n:
+                n = cur
+                cur = n - 1
+                flag = True
+            else:
+                cur -= 1
+        return flag
