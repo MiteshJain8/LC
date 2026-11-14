@@ -15,5 +15,9 @@ class Solution:
         dp[0] = 0
         coins = list(set(coins))
         coins.sort()
-        ans = backtrack(amount)
-        return -1 if ans == amount + 1 else ans
+        for i in range(1, amount+1):
+            for c in coins:
+                if i - c < 0:
+                    break
+                dp[i] = min(dp[i-c] + 1, dp[i])
+        return -1 if dp[amount] == float("inf") else dp[amount]
