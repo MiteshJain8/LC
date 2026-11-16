@@ -1,22 +1,22 @@
 class Solution:
     def canFinish(self, num: int, prereq: list[list[int]]) -> bool:
-        can_do = [True] * num
+        visits = 0
         adj = defaultdict(list)
-        req = defaultdict(set)
+        indegree = [0] * num
         for a,b in prereq:
             adj[b].append(a)
-            req[a].add(b)
-            can_do[a] = False
+            indegree[a] += 1
         dq = deque()
         for i in range(num):
-            if can_do[i]:
+            if indegree[i] == 0:
                 dq.append(i)
+                visits += 1
         while dq:
             course = dq.popleft()
             for c in adj[course]:
-                req[c].remove(course)
-                if not req[c]:
-                    can_do[c] = True
+                indegree[c] -= 1
+                if not indegree[c]:
+                    visits += 1
                     dq.append(c)
-        return False if False in can_do else True
+        return visits == num
         
