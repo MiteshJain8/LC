@@ -10,7 +10,6 @@ class Solution:
                 key = word[:i] + "*" + word[i+1:]
                 adj[key].append(word)
         dq = deque([beginWord])
-        print(adj)
         res = 1
         while dq:
             res += 1
@@ -19,10 +18,9 @@ class Solution:
                 for i in range(w):
                     key = word[:i] + "*" + word[i+1:]
                     for nei in adj[key]:
-                        if nei == endWord:
-                            return res
                         if nei in wordList:
-                            print(nei)
+                            if nei == endWord:
+                                return res
                             wordList.remove(nei)
                             dq.append(nei)
         return 0
