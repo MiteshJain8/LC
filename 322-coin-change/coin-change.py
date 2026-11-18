@@ -3,18 +3,18 @@ class Solution:
         def backtrack(remaining):
             if not remaining:
                 return 0
-
-            if dp[remaining] != -1:
+            if dp[remaining]:
                 return dp[remaining]
-
             res = float("inf")
             for c in coins:
                 if remaining - c >= 0:
-                    res = min(1 + backtrack(remaining - c), res)
+                    res = min(res, 1 + backtrack(remaining - c))
+                else:
+                    break
             dp[remaining] = res
-            return dp[remaining]
-        
+            return res
+
+        dp = [0] * (amount + 1)
         coins.sort()
-        dp = [-1] * (amount+1)
-        res = backtrack(amount)
-        return res if res != float("inf") else -1
+        ans = backtrack(amount)
+        return -1 if ans == float("inf") else ans
