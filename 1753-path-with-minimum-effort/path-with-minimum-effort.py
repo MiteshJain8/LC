@@ -3,14 +3,17 @@ class Solution:
         rows, cols = len(heights), len(heights[0])
         dirs = [(-1,0), (0,1), (0,-1), (1,0)]
         pq = [(0, 0, 0)]
-        minSum = [[float("inf") for _ in range(cols)] for _ in range(rows)]
-        minSum[0][0] = 0
+        visit = [[False for _ in range(cols)] for _ in range(rows)]
         while pq:
-            w, i, j = heappop(pq)
+            diff, i, j = heappop(pq)
+            if visit[i][j]:
+                continue
+            if i == rows-1 and j == cols-1:
+                return diff
+            visit[i][j] = True
             for dx, dy in dirs:
                     x, y = i + dx, j + dy
-                    if 0 <= x < rows and 0 <= y < cols and minSum[x][y] > max(w, abs(heights[x][y] - heights[i][j])):
-                        minSum[x][y] = max(w, abs(heights[x][y] - heights[i][j]))
-                        heappush(pq, (minSum[x][y], x, y))
-        return minSum[rows-1][cols-1]
+                    if 0 <= x < rows and 0 <= y < cols and not visit[x][y]:
+                        newDiff = max(diff, abs(heights[x][y] - heights[i][j]))
+                        heappush(pq, (newDiff, x, y))
 
